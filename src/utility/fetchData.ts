@@ -1,30 +1,30 @@
-const fetchData = async (method: 'get' | 'post', url: string, options?: any) => {
-  const { params, ...otheroptions } = options
+const fetchData = async (method: 'get' | 'post' | 'put' | 'delete', url: string, options?: any) => {
   if (method === 'get') {
     try {
-      const query = new URLSearchParams(params)
+      const query = options?.params ? new URLSearchParams(options.params) : undefined
       const res = query ? await fetch(url + '?' + query) : await fetch(url)
       return await res.json()
     } catch (error) {
-      console.error('error', error)
+      throw new Error('error' + error)
     }
-  }
-  if (method === 'post') {
+  } else if (method === 'post' || method === 'put' || method === 'delete') {
+    const { params, ...otheroptions } = options
     try {
       const settings = params
         ? {
-            method: 'POST',
+            method: method,
             body: JSON.stringify(params),
             ...otheroptions,
           }
-        : { method: 'POST', ...otheroptions }
+        : { method: method, ...otheroptions }
       console.log(settings)
 
       const res = await fetch(url, settings)
       return await res.json()
     } catch (error) {
-      console.error('error', error)
+      throw new Error('error' + error)
     }
   }
+  throw new Error('method is incorrect')
 }
 export default fetchData

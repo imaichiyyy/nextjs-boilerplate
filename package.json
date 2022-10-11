@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev_mock_disabled": "MOCK_DISABLED=true next dev",
     "dev_build": "APP_ENV=development next build",
     "stg_build": "APP_ENV=staging next build",
     "build": "APP_ENV=production next build",
@@ -12,11 +13,13 @@
     "lint:fix": "yarn lint --fix"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.10.1",
     "next": "12.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@mswjs/data": "^0.10.2",
     "@types/node": "18.6.3",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",
@@ -25,8 +28,8 @@
     "eslint-config-prettier": "^8.5.0",
     "msw": "^0.44.2",
     "prettier": "^2.7.1",
-    "typescript": "4.7.4",
-    "sass": "^1.54.0"
+    "sass": "^1.54.0",
+    "typescript": "4.7.4"
   },
   "msw": {
     "workerDirectory": "public"
